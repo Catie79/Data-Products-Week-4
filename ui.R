@@ -18,6 +18,7 @@ shinyUI(fluidPage(
   # Sidebar with a dropdown for procedures 
   sidebarLayout(
     sidebarPanel(
+      textOutput("document"),
       selectInput(inputId = "Procedure",
                   label = "Choose a procedure:",
                   choices = Dummy_Geo_Data$Procedure_Desc),

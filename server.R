@@ -11,6 +11,10 @@ library(scales)
 # Define server logic required to draw a map and define text for top 15 results
 shinyServer <- function(input, output) {
   
+  output$document <- renderText("Please select a procedure in the drop down and then press Refresh to see providers that can perform that procedure on the map.  There will also be a list of the top 15 providers by cost.  Savings is a comparison between the cost of the listed provider and the most expensive provider in the data set for the procedure.  Please note, all data in this application is FAKE and is for demo purposes only.")
+  
+
+  
   Dummy_Geo_Data <- read.csv(file = "data/DummyGeoData.csv")
   
   output$m <- renderLeaflet({
