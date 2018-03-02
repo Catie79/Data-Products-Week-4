@@ -1,0 +1,61 @@
+Finding an affordable healthcare provider
+========================================================
+author: Catie Petersen
+date: 3/2/2018
+autosize: true
+
+Introduction
+========================================================
+
+The cost of healthcare is growing at a staggering rate.  For some families, the choice between care and monthly bills means that medical problems go untreated
+
+- Average MRI:  $2,611
+- Average Carpal Tunnel: $2,922
+- Average Colonoscopy:  $3,081
+
+The Range of Costs
+========================================================
+<small>Changing providers can save a family thousands but providers do not advertise their costs, making it difficult to shop for the best price.
+
+From the demonstration data set:
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(stats)
+library(scales)
+Dummy_Geo_Data <- read.csv(file = "Dummy Geo Data.csv")
+```
+```{r, message=FALSE, warning=FALSE}
+max_cost <- aggregate(Cost ~ Procedure_Desc, data = Dummy_Geo_Data, max)
+min_cost <- aggregate(Cost ~ Procedure_Desc, data = Dummy_Geo_Data, min)
+cost_table <- cbind.data.frame(max_cost$Procedure_Desc, min_cost$Cost, max_cost$Cost)
+cost_table <- cbind.data.frame(cost_table, cost_table$`max_cost$Cost` - cost_table$`min_cost$Cost`)
+```
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+names <- c("Procedure", "MinCost", "MaxCost", "Difference")
+names(cost_table) <- names
+cost_table$MinCost <- dollar(cost_table$MinCost)
+cost_table$MaxCost <- dollar(cost_table$MaxCost)
+cost_table$Difference <- dollar(cost_table$Difference)
+```
+```{r, message=FALSE, warning=FALSE}
+cost_table
+```
+</small>
+
+Searching for healthcare based on price
+========================================================
+The developed application allows the user to look for providers that are near them and cost less based on the procedure.  
+
+- Changing from a high cost provider to a low cost provider can save a family thousands of dollars
+- Having both geographic and cost data allows the user to make a decision on whether or not the drive is worth the savings
+
+Disclaimer
+========================================================
+
+Please note, the data in the application is for demonstration purposes only!  The application was originally designed with actual claim data, but that data is proprietary and has been repaced with aggregated, randomized data.  Do not use to find a health care provider!  The numbers and procedures have been randomized!
+
+Conclusion
+========================================================
+
+- Healthcare costs are out of control
+
+- Allowing people to shop based on location and price will put pressure on facilities to keep their costs reasonable and allow families to make educated decisions
